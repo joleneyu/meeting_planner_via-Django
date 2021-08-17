@@ -5,7 +5,7 @@ from datetime import time
 from django.db.models.deletion import CASCADE
 
 class Room(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
     floor_number = models.IntegerField(default=None)
     room_number = models.CharField(max_length=10)
 
