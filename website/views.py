@@ -8,7 +8,9 @@ from meetings.models import Meeting
 def welcome(request):
     return render(request, "website/welcome.html", 
                   {"message": "This data was sent from the view to the template.",
-                  "num_meetings": Meeting.objects.count()}
+                  "num_meetings": Meeting.objects.count(),
+                  "all_meetings": Meeting.objects.all(),
+                  }
                   )
 
 def date(request):
