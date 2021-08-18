@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room: {{room.name}}</title>
+</head>
+<body>
+    <h1>{{room.name}}</h1>
+    <p>
+        This room is room {{room.room_number}}
+        on floor {{room.floor_number}}
+    </p>
+    <p>
+        <a href="{% url 'rooms_list' %}">
+            Room List
+        </a>
+    </p>
+</body>
+</html>

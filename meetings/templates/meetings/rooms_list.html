@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registered Rooms!</title>
+</head>
+<body>
+    <h1>Welcome to the Meeting Planner! Here are the rooms registered!</h1>
+    <p>
+        There are currently {{num_rooms}} rooms in the database.
+    </p>
+    <h2>Rooms</h2>
+    <ul>
+        {% for room in all_rooms %}
+        <li>
+            <a href="{% url 'room_detail' room.id %}">
+                {{room}}
+            </a>    
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
