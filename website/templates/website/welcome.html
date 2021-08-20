@@ -1,13 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome!</title>
-    <!-- <link rel="stylesheet" href="/static/website/style.css"> -->
-    <link rel="stylesheet" href="{% static 'website/style.css' %}">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Welcome!{% endblock%}
+
+{% block content %}
     <h1>Welcome to the Meeting Planner!</h1>
     <p>
         This is the demo application for the course
@@ -21,7 +16,7 @@
     <p>
         There are currently {{num_meetings}} meetings in the database.
     </p>
-    <img src="{% static 'website/jo.jpg' %}" width="100px">
+    <img src="static/website/jo.jpg" width="100px">
     <h2>Meetings</h2>
     <ul>
         {% for meeting in all_meetings %}
@@ -34,5 +29,4 @@
         {% endfor %}
     </ul>
     <a href="{% url 'rooms_list' %}">Room List</a>
-</body>
-</html>
+{% endblock %}
