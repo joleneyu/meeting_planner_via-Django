@@ -1,8 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Welcome!</title>
+    <!-- <link rel="stylesheet" href="/static/website/style.css"> -->
+    <link rel="stylesheet" href="{% static 'website/style.css' %}">
 </head>
 <body>
     <h1>Welcome to the Meeting Planner!</h1>
@@ -18,6 +21,7 @@
     <p>
         There are currently {{num_meetings}} meetings in the database.
     </p>
+    <img src="{% static 'website/jo.jpg' %}" width="100px">
     <h2>Meetings</h2>
     <ul>
         {% for meeting in all_meetings %}
