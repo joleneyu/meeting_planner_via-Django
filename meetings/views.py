@@ -26,7 +26,7 @@ def rooms_list(request):
 
 MeetingForm = modelform_factory(Meeting, exclude=[])
 
-def new(request):
+def new_meeting(request):
     if request.method == "POST":
         form = MeetingForm(request.POST)
         if form.is_valid():
@@ -36,7 +36,7 @@ def new(request):
 
     else:    
          form = MeetingForm()
-    return render(request, "meetings/new.html",
+    return render(request, "meetings/new_meeting.html",
                   {"form": form},
                  )
 

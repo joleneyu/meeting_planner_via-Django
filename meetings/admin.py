@@ -6,6 +6,3 @@ admin.site.register(Meeting)
 
 admin.site.register(Room)
 
-# a = Meeting()
-# a.hello('jofox')
-# Register your models here.
