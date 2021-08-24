@@ -1,34 +1,43 @@
-
- version: "3.7"
- volumes:
-   meeting_planner-mysql-data:
-   meeting_planner-mysqld:
- services:
-   web:
-     image: python:3.9.6-bullseye
-     command: bash -c "pip install -r requirements.txt && pip install mysqlclient && python manage.py runserver 0.0.0.0:8000"
-     ports:
-       - 8000:8000
-     working_dir: /meeting_planner
-     volumes: 
-       - ./:/meeting_planner
-       - meeting_planner-mysql-data:/var/lib/mysql
-       - meeting_planner-mysqld:/run/mysqld
-     environment: 
-       MYSQL_HOST: mysql
-       MYSQL_USER: root
-       MYSQL_PASSWORD: secret
-       MYSQL_DB: meeting_planner
-     # The app service definition
-   db:
-     platform: linux/x86_64
-     image: mysql:5.7
-     volumes: 
-       - meeting_planner-mysql-data:/var/lib/mysql
-       - meeting_planner-mysqld:/var/run/mysqld
-     environment:
-       MYSQL_ROOT_PASSWORD: secret
-       MYSQL_DATABASE: meeting_planner
+version: "3.7"
+volumes:
+  meeting_planner-mysql-data:
+#  meeting_planner-mysqld:
+services:
+  web:
+    image: python:3.9.6-bullseye
+    command: bash -c "pip install -r requirements.txt && pip install mysqlclient && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - 8000:8000
+    depends_on: 
+      db:
+        condition: service_healthy
+    working_dir: /meeting_planner
+    volumes: 
+      - ./:/meeting_planner
+      - meeting_planner-mysql-data:/var/lib/mysql
+    #  - meeting_planner-mysqld:/run/mysqld
+    environment: 
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: meeting_planner
+    # The app service definition
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    volumes: 
+      - meeting_planner-mysql-data:/var/lib/mysql
+    #  - meeting_planner-mysqld:/var/run/mysqld
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: meeting_planner
+    healthcheck:
+      test: 
+        - "CMD-SHELL"
+        - "mysqlshow  --password=secret"
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 
 
