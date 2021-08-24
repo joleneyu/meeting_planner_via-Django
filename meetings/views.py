@@ -1,3 +1,4 @@
+from django.db.models.query_utils import RegisterLookupMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from meetings.models import Meeting, Room
 from django.forms import modelform_factory
@@ -39,5 +40,19 @@ def new_meeting(request):
     return render(request, "meetings/new_meeting.html",
                   {"form": form},
                  )
+
+RoomForm = modelform_factory(Room, exclude=[])
+
+def new_room(request):
+    if request.method == "POST":
+        room_form = RoomForm(request.POST)
+        if room_form.is_valid():
+            room_form.save()
+            return redirect("rooms_list")
+    else:
+        room_form = RoomForm()
+    return render(request, "meetings/new_room.html",
+                  {"room_form": room_form},
+                 )    
 
 # Create your views here.
